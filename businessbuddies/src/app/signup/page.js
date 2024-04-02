@@ -5,7 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { useRouter } from 'next/navigation'
 import firebase_app from "@/firebase/config";
-
+import Link from "next/link";
 
 function Page() {
     const db = getFirestore(firebase_app);

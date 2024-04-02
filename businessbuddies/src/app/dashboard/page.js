@@ -8,12 +8,12 @@ import {
 
 const dashboard = () => {
 
-    onAuthStateChanged(user => {
-        if (user) {
+//    onAuthStateChanged (user => {
+//         if (user) {
 
-            console.log(getUserData(user.uid));
-        }
-    })
+//             console.log(getUserData(user.uid));
+//         }
+//     })
 
     return (
         <section className="text-gray-600 body-font">
