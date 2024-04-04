@@ -8,10 +8,18 @@ import { getDocs } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 const dashboard = () => {
+
+    // const interestRef = collection(db, "user");
+    // const q = query(interestRef, where("interest", "==", true));
+
+    // Create a query against the collection.
+    // const q = query(citiesRef, where("interest", "==", maininterest));
+
     const [user, setUser] = useState(null);
     const [userData, setUserData] = useState(null);
     const [matchingUsers, setMatchingUsers] = useState([]);
     const [displayName, setDisplayName] = useState('');
+    const [maininterest, setmainInterest] = useState('');
     const [acn, setacn] = useState('');
 
     const [matchinglen, setMatchinglen] = useState('');
@@ -56,19 +64,22 @@ const dashboard = () => {
             if (user) {
                 setDisplayName(userData.name || 'User'); // Set display name if available
                 setacn(userData.acn || 'User'); // Set display name if available
+                setmainInterest(userData.interest || 'User');
             }
 
             if (userData?.interest) {
 
-                const q = query(collection(db, 'user'), where('interest', '==', userData.interest));
+                const q = query(collection(db, 'user'), where('interest', '==', maininterest));
                 const querySnapshot = await getDocs(q);
                 const matching = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 console.log("interest" + userData.interest);
                 // Exclude the current user
                 setMatchingUsers(matching.filter(user => user.id !== user.uid));
-                console.log(matchingUsers);
-                console.log("matching users are" + matching.length);
-                setMatchinglen(matching.length);
+                console.log(matchingUsers.length);
+                console.log("matching users are" + matchingUsers.length);
+                // console.log("matching users are" + matchingUsers);
+                // console.log("matching users are" + maininterest);
+                setMatchinglen(matchingUsers.length);
 
 
 
@@ -88,7 +99,7 @@ const dashboard = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
-                        <span class="ml-3 text-xl">Business Buddies</span>
+                        <span class="ml-3 text-xl">Business Bingo</span>
                     </a>
                     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
 
@@ -108,7 +119,7 @@ const dashboard = () => {
                     <div class="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
                         <div class="w-full sm:p-4 px-4 mb-6">
                             {displayName && (
-                                <h2 className='title-font font-medium text-xl mb-2 text-gray-900'>Welcome, {displayName}!</h2>
+                                <h2 className='title-font font-medium text-xl mb-2 text-gray-900'>Hi, {displayName}!</h2>
                             )}
                             <h1 class="title-font font-medium text-xl mb-2 text-gray-900">Welcome to your Business Buddies Dashboard!</h1>
 
