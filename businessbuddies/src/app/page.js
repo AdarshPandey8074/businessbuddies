@@ -45,21 +45,21 @@ export default function Home() {
             <img className="object-cover object-center rounded" alt="hero" src="https://files.catbox.moe/09x7pb.jpeg"></img>
           </div>
           <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">🚀 Welcome to Business Buddies! 🚀 Unlock the Power of Connection!
+            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">🚀 Welcome to Business Bingo! 🚀 Unlock the Power of Connection!
             </h1>
             <p className="mb-8 leading-relaxed">🤝 Connect with Ease:
               Say goodbye to awkward introductions! Our intuitive app makes it a breeze to find and connect with professionals who share your passions and goals.
               <br></br>
               🎯 Targeted Networking:
-              No more wasting time at generic networking events. With Business Buddies, you can pinpoint exactly who you want to connect with based on industry, interests, and expertise.
+              No more wasting time at generic networking events. With Business Bingo, you can pinpoint exactly who you want to connect with based on industry, interests, and expertise.
               <br></br>
 
               📈 Grow Your Circle:
-              Expand your network exponentially! Whether you're a seasoned entrepreneur or just starting out, there's always room to grow. Business Buddies provides the platform to make meaningful connections that last a lifetime.
+              Expand your network exponentially! Whether you're a seasoned entrepreneur or just starting out, there's always room to grow. Business Bingo provides the platform to make meaningful connections that last a lifetime.
               <br></br>
 
               💡 Spark Creativity:
-              Surround yourself with innovative thinkers and watch your ideas flourish! With Business Buddies, you'll tap into a community brimming with inspiration and collaboration opportunities.</p>
+              Surround yourself with innovative thinkers and watch your ideas flourish! With Business Bingo, you'll tap into a community brimming with inspiration and collaboration opportunities.</p>
             <br></br>
 
             <div className="flex justify-center">
@@ -86,7 +86,7 @@ export default function Home() {
         <div className="container px-5 py-24 mx-auto">
           <div className="text-center mb-20">
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">How we work?</h1>
-            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">At Business Buddies, we believe in simplicity, efficiency, and effectiveness when it comes to connecting like-minded individuals. Here's how we work:</p>
+            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">At Business Bingo, we believe in simplicity, efficiency, and effectiveness when it comes to connecting like-minded individuals. Here's how we work:</p>
             <div className="flex mt-6 justify-center">
               <div className="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
             </div>
@@ -127,7 +127,7 @@ export default function Home() {
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Grow Your Network</h2>
-                <p className="leading-relaxed text-base">Keep nurturing your connections and watch your network flourish. Whether you're seeking advice, collaboration opportunities, or simply looking to expand your circle, Business Buddies provides the platform to help you grow professionally and personally.</p>
+                <p className="leading-relaxed text-base">Keep nurturing your connections and watch your network flourish. Whether you're seeking advice, collaboration opportunities, or simply looking to expand your circle, Business Bingo provides the platform to help you grow professionally and personally.</p>
 
               </div>
             </div>
