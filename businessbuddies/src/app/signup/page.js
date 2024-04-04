@@ -1,57 +1,62 @@
 'use client'
-import React from "react";
-import signUp from "@/firebase/auth/signup";
-import { doc, setDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
-import { useRouter } from 'next/navigation'
-import firebase_app from "@/firebase/config";
-import Link from "next/link";
+import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase/config.js';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link.js';
 
-function Page() {
-    const db = getFirestore(firebase_app);
+const Signup = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [acn, setAcnumber] = useState('');
+    const [interest, setinterest] = useState('');
+    const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [acnumber, setAcnumber] = React.useState('')
-    const [name, setName] = React.useState('')
-    const router = useRouter()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
 
-    const handleForm = async (event) => {
-        event.preventDefault()
-        setDoc(doc(db, "users", "data"), {
-            name: name,
-            ac: acnumber,
-            email: email,
-            pass: password
-        });
-
-        const { result, error } = await signUp(email, password);
-
-        if (error) {
-            return console.log(error)
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Store additional data in Firestore
+            await setDoc(doc(db, 'user', userCredential.user.uid), {
+                acn,
+                interest,
+                name,
+            });
+            router.push('/dashboard');
+        } catch (error) {
+            console.error(error);
+            // Handle error appropriately
+        } finally {
+            setLoading(false);
         }
+    };
 
-        // else successful
-
-        console.log(result)
-        return router.push("/dashboard")
-    }
     return (
         <div className="wrapper">
-            {/* <div className="form-wrapper">
-            <h1 className="mt-60 mb-30">Sign up</h1>
-            <form onSubmit={handleForm} className="form">
-                <label htmlFor="email">
-                    <p>Email</p>
-                    <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email" placeholder="example@mail.com" />
-                </label>
-                <label htmlFor="password">
-                    <p>Password</p>
-                    <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password" id="password" placeholder="password" />
-                </label>
-                <button type="submit">Sign up</button>
-            </form>
-        </div> */}
+            <header class="text-gray-600 body-font">
+                <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        <span class="ml-3 text-xl">Business Buddies</span>
+                    </a>
+                    <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+
+                    </nav>
+                    <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">How it works?
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
             <section class="bg-gray-50 dark:bg-gray-900">
                 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
@@ -60,7 +65,7 @@ function Page() {
                             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Create and account
                             </h1>
-                            <form class="space-y-4 md:space-y-6" onSubmit={handleForm}>
+                            <form class="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
                                     <input id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" required="" onChange={(e) => setName(e.target.value)} />
@@ -72,6 +77,10 @@ function Page() {
                                 <div>
                                     <label for="acnumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Aadhar Card number</label>
                                     <input type="acnumber" name="acnumber" id="acnumber" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123456789" required="" onChange={(e) => setAcnumber(e.target.value)} />
+                                </div>
+                                <div>
+                                    <label for="interests" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your interests</label>
+                                    <input type="acnumber" name="acnumber" id="acnumber" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123456789" required="" onChange={(e) => setinterest(e.target.value)} />
                                 </div>
                                 <div>
                                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
@@ -103,7 +112,8 @@ function Page() {
                     </div>
                 </div>
             </section>
-        </div>);
-}
+        </div>
+    );
+};
 
-export default Page; 
+export default Signup;

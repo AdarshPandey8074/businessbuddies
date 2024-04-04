@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@keyframes lavaLamp {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.lava-lamp {
+    animation: lavaLamp 6s linear infinite;
+    background: linear-gradient(-45deg, #ff00ff, #ffffff, #a649f3);
+    /* background: linear-gradient(-45deg, #ffbfd9, #ffd9e8, #ffebf0); */
+    background-size: 400% 400%;
+    width: 100vw;
+    height: auto;
+    z-index: -5;
+
+}
